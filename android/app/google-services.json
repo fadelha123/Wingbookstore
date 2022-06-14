@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "386099678102",
+    "project_id": "tokobukuonline-85b13",
+    "storage_bucket": "tokobukuonline-85b13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386099678102:android:7f224a58fd27c16b9febb7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386099678102-ira3sjon9itjlscojrokvhvenulb88jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjC0vedkKdRVzs7_DLGF-IzU0fgCItqsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386099678102-ira3sjon9itjlscojrokvhvenulb88jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386099678102:android:e22c3071efbf28509febb7",
+        "android_client_info": {
+          "package_name": "com.example.toko_buku_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386099678102-ira3sjon9itjlscojrokvhvenulb88jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjC0vedkKdRVzs7_DLGF-IzU0fgCItqsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386099678102-ira3sjon9itjlscojrokvhvenulb88jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
