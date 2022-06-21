@@ -27,13 +27,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       if (authCredential.uid.isNotEmpty) {
         Navigator.push(context, CupertinoPageRoute(builder: (_) => UserForm()));
       } else {
-        Fluttertoast.showToast(msg: "Something is wrong");
+        Fluttertoast.showToast(msg: "Terjadi Kesalahan");
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: "Password yang diberikan terlalu lemah.");
       } else if (e.code == 'email-already-in-use') {
-        Fluttertoast.showToast(msg: "Akun sudah ada untuk email itu.");
+        Fluttertoast.showToast(msg: "Akun Sudah Ada Untuk Email Tersebut.");
       }
     } catch (e) {
       print(e);
@@ -64,9 +64,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                     Text(
-                      "Sign Up",
+                      "Pendaftaran Akun Baru",
                       style: TextStyle(
-                          fontSize: 32.sp,
+                          fontSize: 24.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -94,13 +94,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
+                        Text("Wingbookstore",
+                            style: TextStyle(
+                                fontSize: 25.sp,
+                                color: Color(0xFF448AFF),
+                                fontWeight: FontWeight.bold)),
+
                         Text(
-                          "Selamat datang",
-                          style: TextStyle(
-                              fontSize: 22.sp, color: AppColors.blue_accent),
-                        ),
-                        Text(
-                          "Toko Buku Online.",
+                          "",
                           style: TextStyle(
                             fontSize: 14.sp,
                             color: Color(0xFFBBBBBB),
@@ -137,7 +138,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
                                   ),
-                                  labelText: 'EMAIL',
+                                  labelText: 'Email',
                                   labelStyle: TextStyle(
                                     fontSize: 15.sp,
                                     color: AppColors.blue_accent,
@@ -179,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
                                   ),
-                                  labelText: 'PASSWORD',
+                                  labelText: 'Password',
                                   labelStyle: TextStyle(
                                     fontSize: 15.sp,
                                     color: AppColors.blue_accent,
@@ -239,7 +240,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Wrap(
                           children: [
                             Text(
-                              "Don't have an account?",
+                              "Belum Memiliki Akun?",
                               style: TextStyle(
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w600,

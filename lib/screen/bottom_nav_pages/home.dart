@@ -1,69 +1,169 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:toko_buku_online/screen/login_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:toko_buku_online/AppColors.dart';
+import 'package:toko_buku_online/screen/product_details_screen.dart';
+import 'package:toko_buku_online/screen/search_screen.dart';
 
 class Home extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _HomeState createState() => _HomeState();
 }
 
-class _ProfileState extends State<Home> {
-  TextEditingController? _nameController;
-  TextEditingController? _phoneController;
-  TextEditingController? _addrController;
+class _HomeState extends State<Home> {
+  List<String> _carouselImages = [];
+  var _dotPosition = 0;
+  List _products = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
 
-  setDataToTextField(data) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: _nameController =
-              TextEditingController(text: data['name']),
-        ),
-        TextFormField(
-          controller: _phoneController =
-              TextEditingController(text: data['phone']),
-        ),
-        TextFormField(
-          controller: _addrController =
-              TextEditingController(text: data['addr']),
-        ),
-        ElevatedButton(onPressed: () => updateData(), child: Text("Update")),
-      ],
-    );
+  fetchCarouselImages() async {
+    QuerySnapshot qn =
+        await _firestoreInstance.collection("carousel-slider").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _carouselImages.add(
+          qn.docs[i]["img-path"],
+        );
+        print(qn.docs[i]["img-path"]);
+      }
+    });
+
+    return qn.docs;
   }
 
-  updateData() {
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users-form-data");
-    return _collectionRef.doc(FirebaseAuth.instance.currentUser!.email).update({
-      "name": _nameController!.text,
-      "phone": _phoneController!.text,
-      "addr": _addrController!.text,
-    }).then((value) => print("Updated Successfully"));
+  fetchProducts() async {
+    QuerySnapshot qn = await _firestoreInstance.collection("products").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _products.add({
+          "product-name": qn.docs[i]["product-name"],
+          "product-description": qn.docs[i]["product-description"],
+          "product-price": qn.docs[i]["product-price"],
+          "product-img": qn.docs[i]["product-img"],
+        });
+      }
+    });
+
+    return qn.docs;
+  }
+
+  @override
+  void initState() {
+    fetchCarouselImages();
+    fetchProducts();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("users-form-data")
-              .doc(FirebaseAuth.instance.currentUser!.email)
-              .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var data = snapshot.data;
-            if (data == null) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return setDataToTextField(data);
-          },
+          child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: TextFormField(
+                readOnly: true,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                      borderSide: BorderSide(color: Colors.blue)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  hintText: "Search products here",
+                  hintStyle: TextStyle(fontSize: 15.sp),
+                ),
+                onTap: () => Navigator.push(context,
+                    CupertinoPageRoute(builder: (_) => SearchScreen())),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            AspectRatio(
+              aspectRatio: 3.5,
+              child: CarouselSlider(
+                  items: _carouselImages
+                      .map((item) => Padding(
+                            padding: const EdgeInsets.only(left: 3, right: 3),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(item),
+                                      fit: BoxFit.fitWidth)),
+                            ),
+                          ))
+                      .toList(),
+                  options: CarouselOptions(
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.8,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      onPageChanged: (val, carouselPageChangedReason) {
+                        setState(() {
+                          _dotPosition = val;
+                        });
+                      })),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            DotsIndicator(
+              dotsCount:
+                  _carouselImages.length == 0 ? 1 : _carouselImages.length,
+              position: _dotPosition.toDouble(),
+              decorator: DotsDecorator(
+                activeColor: AppColors.blue_accent,
+                color: AppColors.blue_accent.withOpacity(0.5),
+                spacing: EdgeInsets.all(2),
+                activeSize: Size(8, 8),
+                size: Size(6, 6),
+              ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Expanded(
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _products.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: 1),
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ProductDetails(_products[index]))),
+                      child: Card(
+                        elevation: 3,
+                        child: Column(
+                          children: [
+                            AspectRatio(
+                                aspectRatio: 2,
+                                child: Container(
+                                    color: Colors.yellow,
+                                    child: Image.network(
+                                      _products[index]["product-img"][0],
+                                    ))),
+                            Text("${_products[index]["product-name"]}"),
+                            Text(
+                                "${_products[index]["product-price"].toString()}"),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
         ),
       )),
     );

@@ -25,27 +25,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blue_accent,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Toko Buku Online",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 44.sp),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Image.asset(
+                'images/splashScreen.png',
+                width: 350,
               ),
-              SizedBox(
-                height: 20.h,
-              ),
-              CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ],
-          ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 20.0)),
+            CircularProgressIndicator()
+          ],
         ),
       ),
     );

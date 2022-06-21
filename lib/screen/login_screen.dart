@@ -66,10 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Text(
-                      "Sign In",
+                      "Selamat Datang Kembali",
                       style: TextStyle(
-                          fontSize: 32.sp,
-                          color: Colors.white,
+                          fontSize: 30.sp,
+                          color: Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -96,18 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Text(
-                          "Selamat datang",
-                          style: TextStyle(
-                              fontSize: 22.sp, color: AppColors.blue_accent),
-                        ),
-                        Text(
-                          "Toko Buku Online.",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Color(0xFFBBBBBB),
-                          ),
-                        ),
+                        Text("Wingbookstore",
+                            style: TextStyle(
+                                fontSize: 25.sp,
+                                color: Color(0xFF448AFF),
+                                fontWeight: FontWeight.bold)),
+
                         SizedBox(
                           height: 15.h,
                         ),
@@ -139,10 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
                                   ),
-                                  labelText: 'EMAIL',
+                                  labelText: 'Email',
                                   labelStyle: TextStyle(
                                     fontSize: 15.sp,
-                                    color: AppColors.blue_accent,
+                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                               ),
@@ -181,10 +175,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 14.sp,
                                     color: Color(0xFF414041),
                                   ),
-                                  labelText: 'PASSWORD',
+                                  labelText: 'Password',
                                   labelStyle: TextStyle(
                                     fontSize: 15.sp,
-                                    color: AppColors.blue_accent,
+                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                   suffixIcon: _obscureText == true
                                       ? IconButton(
@@ -229,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Wrap(
                           children: [
                             Text(
-                              "Don't have an account?",
+                              "Belum Memiliki Akun?",
                               style: TextStyle(
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w600,
