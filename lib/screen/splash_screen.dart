@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Widget>[
             Container(
               child: Image.asset(
-                'images/splashScreen.png',
-                width: 350,
+                'images/WINNGBOOKSTOREE.png',
+                width: 300,
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 20.0)),

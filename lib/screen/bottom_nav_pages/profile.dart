@@ -29,7 +29,8 @@ class _ProfileState extends State<Profile> {
           controller: _addrController =
               TextEditingController(text: data['addr']),
         ),
-        ElevatedButton(onPressed: () => updateData(), child: Text("Update")),
+        ElevatedButton(
+            onPressed: () => updateData(), child: Text("Perbarui Data")),
       ],
     );
   }
@@ -41,31 +42,44 @@ class _ProfileState extends State<Profile> {
       "name": _nameController!.text,
       "phone": _phoneController!.text,
       "addr": _addrController!.text,
-    }).then((value) => print("Updated Successfully"));
+    }).then((value) => print("Data Selesai Diperbarui"));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("users-form-data")
-              .doc(FirebaseAuth.instance.currentUser!.email)
-              .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var data = snapshot.data;
-            if (data == null) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return setDataToTextField(data);
-          },
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Image.asset(
+                'images/profile.png',
+                width: 200,
+              ),
+            ),
+            SafeArea(
+                child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("users-form-data")
+                    .doc(FirebaseAuth.instance.currentUser!.email)
+                    .snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  var data = snapshot.data;
+                  if (data == null) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return setDataToTextField(data);
+                },
+              ),
+            )),
+          ],
         ),
-      )),
+      ),
     );
   }
 }

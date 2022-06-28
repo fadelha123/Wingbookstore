@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                       borderSide: BorderSide(color: Colors.grey)),
-                  hintText: "Search products here",
+                  hintText: "Temukan Buku yang Berkualitas disini",
                   hintStyle: TextStyle(fontSize: 15.sp),
                 ),
                 onTap: () => Navigator.push(context,
@@ -150,7 +150,7 @@ class _HomeState extends State<Home> {
                             AspectRatio(
                                 aspectRatio: 2,
                                 child: Container(
-                                    color: Colors.yellow,
+                                    color: Color(0xFF448AFF),
                                     child: Image.network(
                                       _products[index]["product-img"][0],
                                     ))),

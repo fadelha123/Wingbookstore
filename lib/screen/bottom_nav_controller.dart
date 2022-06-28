@@ -25,16 +25,19 @@ class _BottomNavControllerState extends State<BottomNavController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          "Toko Buku Online",
-          style: TextStyle(color: Colors.black),
+          "Wingbookstore",
+          style: TextStyle(
+              fontSize: 26,
+              color: Color(0xFF448AFF),
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5,
-        selectedItemColor: Color.fromARGB(255, 60, 105, 255),
-        backgroundColor: Colors.white,
+        selectedItemColor: Color(0xFF448AFF),
+        backgroundColor: Color(0xFF448AFF),
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         selectedLabelStyle:
@@ -48,7 +51,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
               icon: Icon(Icons.favorite_outline), label: "Favourite"),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_shopping_cart),
-            label: "Cart",
+            label: "Keranjang",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
